@@ -6,22 +6,21 @@
   <script src="node_modules/jquery/dist/jquery.js"></script>
   <script src="node_modules/underscore/underscore.js"></script>
   <script src="node_modules/backbone/backbone.js"></script>
+  <script src="src/app.js"></script>
   <script>
-    var SongClass = Backbone.Model.extend({
-      defaults: function() {
-        return {
-          artist: 'empty artist',
-          genre: 'empty genre',
-          title: 'empty title'
-        }
-      }
-    });
-    var oneSong = new SongClass({ artist: 'Eddie Hazel', title: 'Maggot Brain' });
-    oneSong.set({ genre: 'Funk' });
-    console.log( oneSong );
+    app.init();
   </script>
 </head>
 <body>
-  <h1>Test</h1>
+  <h1>Songs</h1>
+  <form id="addSong">
+    <label>Artist:</label>
+    <input name="artist" />
+    <label>Genre:</label>
+    <input name="genre" />
+    <label>Title:</label>
+    <input name="title" />
+    <input type="submit" value="Add" />
+  </form>
 </body>
 </html>
