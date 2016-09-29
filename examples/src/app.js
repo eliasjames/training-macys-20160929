@@ -8,19 +8,21 @@ app.songs = {
         genre: 'empty genre',
         title: 'empty title'
       }
-    },
-    initialize: function songClassInit() {
-      this.on( 'change', function() {
-        var $el = this.get( '$el' );
-
-        console.log( 'change', this.changed );
-        $el.html(
-          this.get('title') + ', ' + this.get('artist')
-        );
-      });
     }
   }),
-  songModelsArray: []
+  SongViewClass: Backbone.View.extend({
+    tagName: 'li',
+    render: function() {
+      this.$el.html( this.model.get( 'title' ) + ', ' +  this.model.get( 'artist' ) );
+      return this;
+    },
+    initialize: function songClassInit() {
+      this.listenTo( this.model, {
+        'change': this.render
+      })
+    }
+  }),
+  songViewsArray: []
 };
 
 app.init = function appInit() {
@@ -30,7 +32,7 @@ app.init = function appInit() {
         addSongConfig,
         newSongModel,
         $el,
-        songIndex;
+        songView;
 
       event.preventDefault();
 
@@ -41,14 +43,9 @@ app.init = function appInit() {
         title: formArray[2].value,
       };
       newSongModel = new app.songs.SongClass( addSongConfig ); 
-      songIndex = app.songs.songModelsArray.push( newSongModel );
-
-      $el = $( '<li/>', {
-        id: newSongModel.cid
-      }).appendTo( '#songsList' );
-      console.log( songIndex, app.songs.songModelsArray );
-      app.songs.songModelsArray[ songIndex - 1 ].set( { $el: $el } );
-
+      songView = new app.songs.SongViewClass( { model: newSongModel } );
+      $( '#songsList' ).append( songView.render().el );
+      app.songs.songViewsArray.push( songView );
     });
   });
 };
