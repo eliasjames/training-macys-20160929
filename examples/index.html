@@ -7,26 +7,18 @@
   <script src="node_modules/underscore/underscore.js"></script>
   <script src="node_modules/backbone/backbone.js"></script>
   <script>
-    function demonstrateUnderscore() {
-      var beatles = [
-        { name: "John",       hands: "Strings" },
-        { name: "Paul",        hands: "Strings" },
-        { name: "George",  hands: "Strings" },
-        { name: "Ringo",     hands: "Sticks" },
-      ];
-
-      // returns 2
-      var count = _.chain( beatles )
-        .where( { hands: "Strings" } )
-        .pluck( "name" )
-        .filter( function (name) { return name.length === 4 } )
-        .value().length;
-
-      return ' worked - ' + count;
-    }
-    $( document ).ready( function() {
-      $( 'h1' ).append( demonstrateUnderscore());
+    var SongClass = Backbone.Model.extend({
+      defaults: function() {
+        return {
+          artist: 'empty artist',
+          genre: 'empty genre',
+          title: 'empty title'
+        }
+      }
     });
+    var oneSong = new SongClass({ artist: 'Eddie Hazel', title: 'Maggot Brain' });
+    oneSong.set({ genre: 'Funk' });
+    console.log( oneSong );
   </script>
 </head>
 <body>
