@@ -9,7 +9,8 @@ app.songs = {
         title: 'empty title'
       }
     }
-  })
+  }),
+  songModelsArray: []
 };
 
 app.init = function appInit() {
@@ -17,7 +18,9 @@ app.init = function appInit() {
     $( '#addSong' ).on('submit', function addSongSubmit() {
       var formArray,
         addSongConfig,
-        newSongModel;
+        newSongModel,
+        $el,
+        songIndex;
 
       event.preventDefault();
 
@@ -28,7 +31,15 @@ app.init = function appInit() {
         title: formArray[2].value,
       };
       newSongModel = new app.songs.SongClass( addSongConfig ); 
-      console.log( newSongModel );
+      songIndex = app.songs.songModelsArray.push( newSongModel );
+
+      $el = $( '<li/>', {
+        id: newSongModel.cid,
+        html: newSongModel.get('title') + ', ' + newSongModel.get('artist')
+      }).appendTo( '#songsList' );
+      console.log( songIndex, app.songs.songModelsArray );
+      app.songs.songModelsArray[ songIndex - 1 ].set( { $el: $el } );
+
     });
   });
 };
