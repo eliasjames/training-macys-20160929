@@ -8,6 +8,16 @@ app.songs = {
         genre: 'empty genre',
         title: 'empty title'
       }
+    },
+    initialize: function songClassInit() {
+      this.on( 'change', function() {
+        var $el = this.get( '$el' );
+
+        console.log( 'change', this.changed );
+        $el.html(
+          this.get('title') + ', ' + this.get('artist')
+        );
+      });
     }
   }),
   songModelsArray: []
@@ -34,8 +44,7 @@ app.init = function appInit() {
       songIndex = app.songs.songModelsArray.push( newSongModel );
 
       $el = $( '<li/>', {
-        id: newSongModel.cid,
-        html: newSongModel.get('title') + ', ' + newSongModel.get('artist')
+        id: newSongModel.cid
       }).appendTo( '#songsList' );
       console.log( songIndex, app.songs.songModelsArray );
       app.songs.songModelsArray[ songIndex - 1 ].set( { $el: $el } );
