@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript / Backbone training</title>
+  <script src="node_modules/jquery/dist/jquery.js"></script>
+  <script src="node_modules/underscore/underscore.js"></script>
+  <script src="node_modules/backbone/backbone.js"></script>
+  <script>
+    function demonstrateUnderscore() {
+      var beatles = [
+        {name: "John",       hands: "Strings"},
+        {name: "Paul",        hands: "Strings"},
+        {name: "George",  hands: "Strings"},
+        {name: "Ringo",     hands: "Sticks"},
+      ];
+
+      // returns 2
+      var count = _.chain( beatles )
+        .where( {hands: "Strings"} )
+        .pluck( "name" )
+        .filter( function (name) { return name.length === 4 } )
+        .value().length;
+
+      return ' worked - ' + count;
+    }
+    $( document ).ready( function() {
+      $( 'h1' ).append( demonstrateUnderscore());
+    });
+  </script>
+</head>
+<body>
+  <h1>Test</h1>
+</body>
+</html>
