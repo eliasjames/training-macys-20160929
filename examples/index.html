@@ -17,7 +17,7 @@
 
       // returns 2
       var count = _.chain( beatles )
-        .where( {hands: "Strings"} )
+        .where( { hands: "Strings" } )
         .pluck( "name" )
         .filter( function (name) { return name.length === 4 } )
         .value().length;
