@@ -17,6 +17,7 @@ app.songsCollection = new app.SongsCollection();
 app.SongView = Marionette.View.extend({
     deleteModel: function() {
       this.model.destroy();
+      this.remove();
     },
     tagName: 'li',
     template: '#song-view-template',
