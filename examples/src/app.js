@@ -19,9 +19,20 @@ app.songs = {
     }
   }),
   SongViewClass: Backbone.View.extend({
+    deleteSong: function deleteSong() {
+      this.model.destroy();
+    },
+    events: {
+      'click .deleteSong': 'deleteSong'
+    },
     tagName: 'li',
     render: function() {
-      this.$el.html( this.model.get( 'title' ) + ', ' +  this.model.get( 'artist' ) );
+      this.$el.html(
+        this.model.get( 'title' ) +
+        ', ' +
+        this.model.get( 'artist' ) +
+        '<input class="deleteSong" type="button" value="Delete" />'
+      );
       return this;
     },
     initialize: function songClassInit() {
