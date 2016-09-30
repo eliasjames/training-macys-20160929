@@ -1,68 +1,57 @@
-var app = app || {};
+var app = new Marionette.Application();
 
-var SongsCollection = Backbone.Collection;
-
-app.songs = {
-  SongsCollection: SongsCollection,
-  SongClass: Backbone.Model.extend({
-    defaults: function songClassDefaults() {
-      return {
-        artist: 'empty artist',
-        genre: 'empty genre',
-        title: 'empty title'
-      }
-    },
-    initialize: function initSongClass() {
-      this.songView = new app.songs.SongViewClass( { model: this } );
-      $( '#songsList' ).append( this.songView.render().$el );
-      app.songs.collections['default'].add( this );
+app.SongModel = Backbone.Model.extend({
+  defaults: function songModelDefaults() {
+    return {
+      artist: 'empty artist',
+      genre: 'empty genre',
+      title: 'empty title'
     }
-  }),
-  SongViewClass: Backbone.View.extend({
-    deleteSong: function deleteSong() {
+  },
+  initialize: function initSongModel() {
+    app.songsCollection.add( this );
+  }
+});
+app.SongsCollection = Backbone.Collection;
+app.songsCollection = new app.SongsCollection();
+app.SongView = Marionette.View.extend({
+    deleteModel: function() {
       this.model.destroy();
     },
-    events: {
-      'click .deleteSong': 'deleteSong'
-    },
     tagName: 'li',
-    render: function() {
-      this.$el.html(
-        this.model.get( 'title' ) +
-        ', ' +
-        this.model.get( 'artist' ) +
-        '<input class="deleteSong" type="button" value="Delete" />'
-      );
-      return this;
-    },
-    initialize: function songClassInit() {
-      this.collection = app.songs.collections['default'];
-      this.listenTo( this.model, {
-        'change': this.render,
-        'destroy': this.remove
-      });
+    template: '#song-view-template',
+    events: {
+      'click input.delete': 'deleteModel'
     }
-  }),
-  collections: { 'default': new SongsCollection()  }
-};
-
-app.init = function appInit() {
-  $( document ).ready( function docReady() {
-    $( '#addSong' ).on('submit', function addSongSubmit() {
-      var formArray,
-        addSongConfig,
-        newSongModel,
-        songView;
-
-      event.preventDefault();
-
-      formArray = $( this ).serializeArray();
-      addSongConfig = {
-        artist: formArray[0].value,
-        genre: formArray[1].value,
-        title: formArray[2].value,
-      };
-      newSongModel = new app.songs.SongClass( addSongConfig ); 
-    });
   });
-};
+app.SongsList = Marionette.CollectionView.extend({
+    tagName: 'ul',
+    childView: app.SongView,
+    collection: app.songsCollection
+  });
+app.songsList = new app.SongsList();
+
+app.on('start', function appInit() {
+  app.songsList.render();
+  $( 'body' ).append( app.songsList.$el );
+});
+
+$( document ).ready( function docReady() {
+  app.start();
+  $( '#addSong' ).on('submit', function addSongSubmit() {
+    var formArray,
+      addSongConfig,
+      newSongModel,
+      songView;
+
+    event.preventDefault();
+
+    formArray = $( this ).serializeArray();
+    addSongConfig = {
+      artist: formArray[0].value,
+      genre: formArray[1].value,
+      title: formArray[2].value,
+    };
+    newSongModel = new app.SongModel( addSongConfig ); 
+  });
+});

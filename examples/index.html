@@ -6,10 +6,9 @@
   <script src="node_modules/jquery/dist/jquery.js"></script>
   <script src="node_modules/underscore/underscore.js"></script>
   <script src="node_modules/backbone/backbone.js"></script>
+  <script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
+  <script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
   <script src="src/app.js"></script>
-  <script>
-    app.init();
-  </script>
 </head>
 <body>
   <h1>Songs</h1>
@@ -22,6 +21,9 @@
     <input name="title" />
     <input type="submit" value="Add" />
   </form>
-  <ul id="songsList"></ul>
+  <script type="x-template/underscore" id="song-view-template">
+    <%- title %>, <%- artist %>
+    <input class="delete" type="button" value="delete" />
+  </script>
 </body>
 </html>
