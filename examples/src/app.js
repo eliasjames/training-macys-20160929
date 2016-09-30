@@ -1,6 +1,9 @@
 var app = app || {};
 
+var SongsCollection = Backbone.Collection;
+
 app.songs = {
+  SongsCollection: SongsCollection,
   SongClass: Backbone.Model.extend({
     defaults: function songClassDefaults() {
       return {
@@ -8,6 +11,11 @@ app.songs = {
         genre: 'empty genre',
         title: 'empty title'
       }
+    },
+    initialize: function initSongClass() {
+      this.songView = new app.songs.SongViewClass( { model: this } );
+      $( '#songsList' ).append( this.songView.render().$el );
+      app.songs.collections['default'].add( this );
     }
   }),
   SongViewClass: Backbone.View.extend({
@@ -17,12 +25,14 @@ app.songs = {
       return this;
     },
     initialize: function songClassInit() {
+      this.collection = app.songs.collections['default'];
       this.listenTo( this.model, {
-        'change': this.render
-      })
+        'change': this.render,
+        'destroy': this.remove
+      });
     }
   }),
-  songViewsArray: []
+  collections: { 'default': new SongsCollection()  }
 };
 
 app.init = function appInit() {
@@ -31,7 +41,6 @@ app.init = function appInit() {
       var formArray,
         addSongConfig,
         newSongModel,
-        $el,
         songView;
 
       event.preventDefault();
@@ -43,9 +52,6 @@ app.init = function appInit() {
         title: formArray[2].value,
       };
       newSongModel = new app.songs.SongClass( addSongConfig ); 
-      songView = new app.songs.SongViewClass( { model: newSongModel } );
-      $( '#songsList' ).append( songView.render().el );
-      app.songs.songViewsArray.push( songView );
     });
   });
 };
