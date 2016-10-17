@@ -14,6 +14,9 @@ var AppView = Marionette.View.extend({
   showAbout: function showAbout() {
     this.showChildView( 'navbody', new app.appViews.About() );
   },
+  showAddSong: function showAddSong() {
+    this.showChildView( 'navbody', new app.appViews.AddSong() );
+  },
   showSongs: function showSongs() {
     this.showChildView( 'navbody', new app.appViews.SongsList() );
   },

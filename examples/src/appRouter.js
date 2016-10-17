@@ -3,6 +3,7 @@ app.AppRouter = Marionette.AppRouter.extend({
   appRoutes: {
     '': 'showAbout',
     'about': 'showAbout',
+    'add-song': 'showAddSong',
     'songs': 'showSongs'
   }
 });

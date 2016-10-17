@@ -11,40 +11,15 @@ app.NavBodyView = Marionette.View.extend({});
 app.navCollection.add([
   {
     navName: 'about',
-    navAction: 'about',
-    navBodyViewConf: 'About'
+    navAction: 'about'
   },
   {
     navName: 'add a song',
-    navAction: 'add-song',
-    navBodyViewConf: {
-      events: {
-      'click #submit': function addSong( e ) {
-        var formArray,
-          addSongConfig,
-          newSongModel,
-          songView;
-
-        e.preventDefault();
-
-        formArray = $( '#add-song' ).serializeArray();
-        addSongConfig = {
-          artist: formArray[0].value,
-          genre: formArray[1].value,
-          title: formArray[2].value,
-        };
-        new app.SongModel( addSongConfig );
-        app.appView.showSongs();
-      },
-      'submit': function() { debugger; }
-      },
-      template: '#add-song-template'
-    }
+    navAction: 'add-song'
   },
   {
     navName: 'songs',
-    navAction: 'list-songs',
-    navBodyViewConf: 'SongsList'
+    navAction: 'songs'
   }
 ]);
 app.navView = Marionette.View.extend({
@@ -53,22 +28,7 @@ app.navView = Marionette.View.extend({
     this.remove();
   },
   tagName: 'li',
-  template: '#nav-view-template',
-  events: {
-    'click a': 'navClick'
-  },
-  navClick: function navClick( e ) {
-    e.preventDefault();
-    var renderableConf = this.model.attributes.navBodyViewConf;
-    var renderableView;
-
-    if ( typeof renderableConf === 'string' ) {
-      renderableView = new app.appViews[ renderableConf ]();
-    } else if ( typeof renderableConf === 'object' ) {
-      renderableView = new app.NavBodyView( this.model.attributes.navBodyViewConf ); 
-    }
-    app.appView.showChildView( 'navbody', renderableView );
-  }
+  template: '#nav-view-template'
 });
 app.NavList = Marionette.CollectionView.extend({
   tagName: 'ul',
