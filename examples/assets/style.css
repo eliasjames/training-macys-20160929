@@ -1,0 +1,14 @@
+#main-content {
+  max-width: 500px;
+}
+nav {
+  border: 1px solid black;
+  float: left;
+  max-width: 250px;
+  min-width: 125px;
+  width: 50%;
+}
+#nav-body {
+  float: right;
+  max-width: 160px;
+}
