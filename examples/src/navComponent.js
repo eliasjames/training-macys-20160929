@@ -34,7 +34,7 @@ app.navCollection.add([
           title: formArray[2].value,
         };
         new app.SongModel( addSongConfig );
-        app.appView.showChildView( 'navbody', app.songsList );
+        app.appView.showSongs();
       },
       'submit': function() { debugger; }
       },
