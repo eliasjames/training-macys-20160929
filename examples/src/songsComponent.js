@@ -34,5 +34,4 @@ app.songsList = new app.SongsList();
 
 app.on('start', function appInit() {
   app.songsList.render();
-  $( 'body' ).append( app.songsList.$el );
 });

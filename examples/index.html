@@ -8,24 +8,42 @@
   <script src="node_modules/backbone/backbone.js"></script>
   <script src="node_modules/backbone.radio/build/backbone.radio.js"></script>
   <script src="node_modules/backbone.marionette/lib/backbone.marionette.js"></script>
-  <script src="src/app.js"></script>
-  <script src="src/songsComponent.js"></script>
-  <script src="src/appRouter.js"></script>
-</head>
-<body>
-  <h1>Songs</h1>
-  <form id="addSong">
-    <label>Artist:</label>
-    <input name="artist" />
-    <label>Genre:</label>
-    <input name="genre" />
-    <label>Title:</label>
-    <input name="title" />
-    <input type="submit" value="Add" />
-  </form>
+  <script type="x-template/underscore" id="app-view-template">
+  <div id="main-content" class="sidebar rh">
+  </div>
+  <div class="sidebar lh">
+    <nav>
+    </nav>
+    <div id="nav-body">
+    </div>
+  </div>
+  </script>
+  <script type="x-template/underscore" id="add-song-template">
+  <div>
+    <h1>Songs</h1>
+    <form id="add-song">
+      <label>Artist:</label>
+      <input name="artist" />
+      <label>Genre:</label>
+      <input name="genre" />
+      <label>Title:</label>
+      <input name="title" />
+      <input id="submit" type="submit" value="Add" />
+    </form>
+  </div>
+  </script>
+  <script type="x-template/underscore" id="nav-view-template">
+    <a href="#<%- navAction %>"><%- navName %></a>
+  </script>
   <script type="x-template/underscore" id="song-view-template">
     <%- title %>, <%- artist %>
     <input class="delete" type="button" value="delete" />
   </script>
+  <script src="src/app.js"></script>
+  <script src="src/songsComponent.js"></script>
+  <script src="src/navComponent.js"></script>
+  <script src="src/appRouter.js"></script>
+</head>
+<body id="app-body">
 </body>
 </html>

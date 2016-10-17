@@ -1,21 +1,20 @@
-var app = new Marionette.Application();
+var appClass = Marionette.Application.extend({
+  region: '#app-body',
+  onStart: function() {
+    var main = this.getRegion();
+    main.show( app.appView );
+  }
+});
+var app = new appClass();
+var AppView = Marionette.View.extend({
+  regions: {
+    navbody: '#nav-body'
+  },
+  template: '#app-view-template'
+});
+app.appView = new AppView();
+
 
 $( document ).ready( function docReady() {
   app.start();
-  $( '#addSong' ).on('submit', function addSongSubmit() {
-    var formArray,
-      addSongConfig,
-      newSongModel,
-      songView;
-
-    event.preventDefault();
-
-    formArray = $( this ).serializeArray();
-    addSongConfig = {
-      artist: formArray[0].value,
-      genre: formArray[1].value,
-      title: formArray[2].value,
-    };
-    newSongModel = new app.SongModel( addSongConfig ); 
-  });
 });
