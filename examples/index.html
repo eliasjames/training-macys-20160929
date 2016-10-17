@@ -34,11 +34,18 @@
   <script type="x-template/underscore" id="nav-view-template">
     <a href="#<%- navAction %>"><%- navName %></a>
   </script>
+  <script type="x-template/underscore" id="about-template">
+  <h2>about</h2>
+  </script>
+  <script type="x-template/underscore" id="home-template">
+  <h2>home</h2>
+  </script>
   <script type="x-template/underscore" id="song-view-template">
     <%- title %>, <%- artist %>
     <input class="delete" type="button" value="delete" />
   </script>
   <script src="src/app.js"></script>
+  <script src="src/appViews.js"></script>
   <script src="src/songsComponent.js"></script>
   <script src="src/navComponent.js"></script>
   <script src="src/appRouter.js"></script>

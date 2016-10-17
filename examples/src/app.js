@@ -12,15 +12,14 @@ var AppView = Marionette.View.extend({
     navbody: '#nav-body'
   },
   showAbout: function showAbout() {
-    this.showChildView( 'navbody', _.template( '<h2>about</h2>' ));
+    this.showChildView( 'navbody', new app.appViews.About() );
   },
   showSongs: function showSongs() {
-    this.showChildView( 'navbody', new app.SongsList() );
+    this.showChildView( 'navbody', new app.appViews.SongsList() );
   },
   template: '#app-view-template'
 });
 app.appView = new AppView();
-
 
 $( document ).ready( function docReady() {
   app.start();

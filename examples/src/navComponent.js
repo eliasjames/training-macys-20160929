@@ -12,7 +12,7 @@ app.navCollection.add([
   {
     navName: 'about',
     navAction: 'about',
-    navBodyViewConf: { template: _.template('<p><h4>about</h4></p>') }
+    navBodyViewConf: 'About'
   },
   {
     navName: 'add a song',
@@ -63,7 +63,7 @@ app.navView = Marionette.View.extend({
     var renderableView;
 
     if ( typeof renderableConf === 'string' ) {
-      renderableView = new app[ renderableConf ]();
+      renderableView = new app.appViews[ renderableConf ]();
     } else if ( typeof renderableConf === 'object' ) {
       renderableView = new app.NavBodyView( this.model.attributes.navBodyViewConf ); 
     }
