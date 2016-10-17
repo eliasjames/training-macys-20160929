@@ -7,11 +7,7 @@ app.navModel = Backbone.Model.extend({
 });
 app.NavCollection = Backbone.Collection;
 app.navCollection = new app.NavCollection();
-app.NavBodyView = Marionette.View.extend({
-  initialize: function initNavBodyView() {
-    console.log( 'keedl' );
-  }
-});
+app.NavBodyView = Marionette.View.extend({});
 app.navCollection.add([
   {
     navName: 'about',
