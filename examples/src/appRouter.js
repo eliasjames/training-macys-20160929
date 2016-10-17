@@ -7,7 +7,7 @@ app.AppRouter = Marionette.AppRouter.extend({
   },
   home: function home() {
     app.appView.render();
-    $('body').html( app.appView.$el );
+    $( 'body' ).html( app.appView.$el );
   },
 });
 app.appRouter = new app.AppRouter();
