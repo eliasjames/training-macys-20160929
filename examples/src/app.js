@@ -3,6 +3,7 @@ var appClass = Marionette.Application.extend({
   onStart: function() {
     var main = this.getRegion();
     main.show( app.appView );
+    Backbone.history.start();
   }
 });
 var app = new appClass();

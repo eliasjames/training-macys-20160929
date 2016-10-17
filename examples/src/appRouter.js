@@ -1,4 +1,4 @@
-var AppRouter = Marionette.AppRouter.extend({
+app.AppRouter = Marionette.AppRouter.extend({
   routes: {
     '': 'home',
     'about': 'about',
@@ -8,12 +8,11 @@ var AppRouter = Marionette.AppRouter.extend({
     $('body').html('<h2>about</h2>');
   },
   home: function home() {
-    $('body').html('<h2>home</h2>');
+    app.appView.render();
+    $('body').html( app.appView.$el );
   },
   songs: function songs() {
     $('body').html( app.songsList.$el );
   }
 });
-var appRouter = new AppRouter();
-
-Backbone.history.start();
+app.appRouter = new app.AppRouter();
